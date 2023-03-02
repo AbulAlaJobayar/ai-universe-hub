@@ -1,21 +1,25 @@
 const sixCard=()=>{
+    document.getElementById("spinner").classList.remove("d-none");
     const url=`https://openapi.programming-hero.com/api/ai/tools`
     fetch(url)
 	.then(res => res.json())
-	.then(data => uiSixCard(data.data.tools.slice(0 , 6)))
+	.then(data=>{
+        document.getElementById("spinner").classList.add("d-none");
+        uiSixCard(data.data.tools.slice(0 , 6))
+    })
 	.catch(err => console.error(err));
 }
 // first ui card
 const uiSixCard = data=>{
     // console.log(data)
     const card = document.getElementById('card');
+    card.innerHTML="";
+
     data.forEach(singleData => {
-    console.log(singleData)
+    // console.log(singleData)
 
-      const {image, features,published_in,name}=singleData;
-
+      const {image, features,published_in,name,id}=singleData;
       const div = document.createElement('div');
-      
       div.classList.add='col';
       div.innerHTML=`
     <div class="card">
@@ -38,7 +42,7 @@ const uiSixCard = data=>{
                     </div>
                 </div>
                 <div>
-                <i class="fa-solid fa-arrow-right text-danger"></i>
+                <i onclick="details('${id}')" class="fa-solid fa-arrow-right text-danger"data-bs-toggle="modal" data-bs-target="#exampleModal" type="button"></i>
                 </div>
 
             </div>
@@ -48,4 +52,28 @@ const uiSixCard = data=>{
       
     });
 }
+// show all option
+const allCard=()=>{
+    document.getElementById("spinner").classList.remove("d-none");
+    document.getElementById("btn").classList.add("d-none");
+    const url=`https://openapi.programming-hero.com/api/ai/tools`
+    fetch(url)
+	.then(res => res.json())
+	.then(data => {
+        document.getElementById("spinner").classList.add("d-none");
+        uiSixCard(data.data.tools)})
+	.catch(err => console.error(err));
+}
+
+const details =id=>{
+    const url =`https://openapi.programming-hero.com/api/ai/tool/${id}`
+    fetch(url)
+    .then(res=>res.json())
+    .then(data=>modalDetails(data))
+    .catch(err=>console.error(err))
+}
+const modalDetails=(data)=>{
+    console.log(data)
+}
+
 sixCard()
