@@ -82,20 +82,40 @@ fetch(url)
 }
 
 const modalDetails=(data)=>{
- console.log(data.pricing.id)
- const {description,pricing} =data
+ 
+ const {description,pricing,features, integrations,image_link,input_output_examples} =data
 
-
+ console.log(data)
 const modalBody=document.getElementById("modeel-body");
 modalBody.innerHTML="";
 const div=document.createElement("div");
-div.classList.add('border', 'border-danger', 'bg-warning-subtle',  'gap-2',  'p-4', 'rounded')
+div.classList.add('d-flex', 'justify-content-between', 'gap-3',  'align-items-center')
 
 
 div.innerHTML=`
+<div class="border border-danger bg-warning-subtle gap-2 p-4 rounded">
 <h5>${description}</h5>
 <div id="${pricing}" class="d-flex justify-content-between gap-3">
-     
+</div>
+<div class="d-flex justify-content-between gap-5">
+    <div>
+        <h5 class="fw-bold">Features</h5>
+
+
+        <ul id="features"> skip featchers</ul>
+    </div>
+
+    <div>
+        <h5>Integrations</h5>
+        <ul id="${integrations}"> </ul>
+    </div>
+</div>
+</div>
+
+<div>
+<img class="img-fluid mt-4 rounded" src="${image_link[0]? image_link[0]: image_link[1]}" alt="">
+<h5id="${input_output_examples}"></h5>
+<p>lkfdnbln</p>
 </div>
 
 `
@@ -104,14 +124,34 @@ modalBody.appendChild(div)
 const orderList=document.getElementById(pricing);
     orderList.innerText="";
     pricing.forEach(Element => {
-    console.log(Element)
+    // console.log(Element)
         const p =document.createElement('p')
         p.classList.add('fw-bold', 'bg-white','p-2')
         p.innerText= Element.price + Element.plan? Element.price + Element.plan :'Free of Cost';
         orderList.appendChild(p)
-      }); 
+      });
 
 
+// const fetcherList=document.getElementById("features"); 
+//   console.log(features)
+//   for (const fow in features ) {
+//     console.log(fow.feature_name);
+//   }
+
+// integrations-ui
+// console.log(integrations)
+const integrationsList=document.getElementById(integrations);
+integrationsList.innerText="";
+integrations.forEach(Element => {
+    console.log(Element)
+        const li =document.createElement('li')
+        li.innerText= Element? Element :'No data Found';
+        integrationsList.appendChild(li)
+      });
+
+
+
+      
 }
 
 
