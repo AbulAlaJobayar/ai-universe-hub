@@ -21,7 +21,7 @@ const uiSixCard = data=>{
 
       const {image, features,published_in,name,id}=singleData;
       const div = document.createElement('div');
-      console.log(singleData.id)
+     console.log(id)
       div.classList.add='col';
       div.innerHTML=`
     <div class="card">
@@ -41,7 +41,7 @@ const uiSixCard = data=>{
                 </div>
                 
                <div class="model-Open-Section">
-               <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+               <button onclick="modelDetails('${id}')" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                <i class="fa-solid fa-arrow-right"></i>
              </button>
                 
@@ -73,21 +73,41 @@ const allCard=()=>{
 }
 
 // modal-Data
-const details =id=>{
-    const url =`https://openapi.programming-hero.com/api/ai/tool/${id}`
-    fetch(url)
-    .then(res=>res.json())
-    .then(data=>modalDetails(data.data))
-    .catch(err=>console.error(err))
+const modelDetails= id =>{
+const url =`https://openapi.programming-hero.com/api/ai/tool/${id}`
+fetch(url)
+.then(res=>res.json())
+.then(data=>console.log(data))
+.catch(err=>console.error(err))
 }
-const modalDetails=(data)=>{
-    // console.log(data.image_link[0])
-    const{description,tool_name,pricing,features,integrations,image_link
-    }=data
 
-    
 
-}
+
+
+
+
+
+// const details =id=>{
+//     const url =`https://openapi.programming-hero.com/api/ai/tool/${id}`
+
+//     fetch(url)
+//     .then(res=>res.json())
+//     .then(data=>modalDetails(data))
+//     .catch(err=>console.error(err))
+// }
+// const modalDetails=(data)=>{
+//  console.log(data) 
+// const modalBody=document.getElementById("modeel-body");
+// console.log(modalBody)
+// const div=document.createElement("div");
+// console.log(div)
+// div.innerHTML=`
+// <h1>hello</h1>
+// `
+// modalBody.appendChild(div)
+
+
+// }
 
 
 
