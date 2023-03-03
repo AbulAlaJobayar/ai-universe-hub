@@ -113,21 +113,21 @@ div.innerHTML=`
 </div>
 
 <div>
-<img class="img-fluid mt-4 rounded" src="${image_link[0]? image_link[0]: image_link[1]}" alt="">
-<h5id="${input_output_examples}"></h5>
-<p>lkfdnbln</p>
+<img class="img-thumbnail mt-4 rounded" src="${image_link[0]}" alt="">
+
+<div id="${input_output_examples}">
+</div>
 </div>
 
 `
 modalBody.appendChild(div)
 
 const orderList=document.getElementById(pricing);
-    orderList.innerText="";
+    orderList.innerText= "";
     pricing.forEach(Element => {
-    // console.log(Element)
         const p =document.createElement('p')
         p.classList.add('fw-bold', 'bg-white','p-2')
-        p.innerText= Element.price + Element.plan? Element.price + Element.plan :'Free of Cost';
+        p.innerText= Element.price;
         orderList.appendChild(p)
       });
 
@@ -142,16 +142,26 @@ const orderList=document.getElementById(pricing);
 // console.log(integrations)
 const integrationsList=document.getElementById(integrations);
 integrationsList.innerText="";
+console
 integrations.forEach(Element => {
-    console.log(Element)
+            console.log(Element)
         const li =document.createElement('li')
-        li.innerText= Element? Element :'No data Found';
+        li.innerText= integrations ? Element :"No data found";
         integrationsList.appendChild(li)
       });
 
+// input_output_examples-ui
+const welcome=document.getElementById(input_output_examples);
+welcome.innerHTML="";
+input_output_examples.forEach(element => {
 
+    console.log(element.input);
+    welcome.innerHTML=`
+    <h3 class="mt-4 text-center">${element.input ? element.input : "Can you give any example?"}</h3>
+    <p class="mt-4 text-center">${element.output.null ? "No! Not Yet! Take a break!!!": element.output}</p>
+    `
+});
 
-      
 }
 
 
