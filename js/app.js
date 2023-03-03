@@ -1,3 +1,4 @@
+
 // firstSixCard
 const sixCard=()=>{
     document.getElementById("spinner").classList.remove("d-none");
@@ -12,13 +13,11 @@ const sixCard=()=>{
 }
 // first ui card
 const uiSixCard = data=>{
-    // console.log(data)
+    console.log(data)
     const card = document.getElementById('card');
     card.innerHTML="";
 
     data.forEach(singleData => {
-    // console.log(singleData.features)
-
       const {image, features,published_in,name,id}=singleData;
       const div = document.createElement('div');
       div.classList.add='col';
@@ -82,8 +81,8 @@ fetch(url)
 
 const modalDetails=(data)=>{
  
- const {description,pricing,features, integrations,image_link,input_output_examples} =data
-console.log(data.accuracy.score)
+ const {description,pricing,features, integrations,image_link,input_output_examples} =data;
+
 const modalBody=document.getElementById("modeel-body");
 modalBody.innerHTML="";
 const div=document.createElement("div");
@@ -92,8 +91,8 @@ div.classList.add('d-md-flex', 'justify-content-between', 'flex-sm-column','flex
 
 div.innerHTML=`
 <div class="border border-danger bg-warning-subtle gap-2 p-4 rounded">
-<h5>${description}</h5>
-<div id="${pricing}" class="d-flex flex-sm-row justify-content-between gap-3">
+<h5 id="descript">${description}</h5>
+<div id="${pricing}" class=" prric d-flex flex-sm-row justify-content-between gap-3">
 </div>
 <div class="d-flex flex-sm-row justify-content-between gap-5">
     <div>
@@ -117,7 +116,7 @@ div.innerHTML=`
 <div class="position-relative">
 
 <img class="img-fluid mt-4 rounded" src="${image_link[0]}" alt="">
-<div>
+<div id="curency">
 
 <span class="badge text-bg-danger p-2 fw-bold  position-absolute top-0 end-0" style="margin-top: 2rem; margin-right:1rem">${data.accuracy.score} % accuracy</span>
 </div>
@@ -134,25 +133,17 @@ const orderList=document.getElementById(pricing);
     pricing.forEach(Element => {
         const p =document.createElement('p')
         p.classList.add('fw-bold', 'bg-white','p-2')
-        p.innerText= Element.price;
+        p.innerText= Element.price? Element.price:"free of cost" ;
         orderList.appendChild(p)
       });
 
 
-// const fetcherList=document.getElementById("features"); 
-//   console.log(features)
-//   for (const fow in features ) {
-//     console.log(fow.feature_name);
-//   }
-
 // integrations-ui
-// console.log(integrations)
 const integrationsList=document.getElementById(integrations);
 integrationsList.innerText="";
 integrations.forEach(Element => {
 
         const li =document.createElement('li')
-        console.log(integrations)
         li.innerText= integrations ? Element : "No data found";
         integrationsList.appendChild(li)
       });
@@ -168,10 +159,27 @@ input_output_examples.forEach(element => {
     `
 });
 
+if(pricing===null){
+    document.querySelectorAll('.prric').innerHTML=`
+    <li>free of cost</li>
+    <li>free of cost</li>
+    <li>free of cost</li>
+    `
+    return;
+}
+if(description===null){
+    document.getElementById('descript').innerText="Facebook Ai is a collection of tools and technologies developed by Facebook to advance the field of artificial intelligence."
+    return;
+}
+if(data.accuracy.score===null){
+document.getElementById('curency').style.display = "none";
+return;
 }
 
 
+}
+
 // modal
 
-
+console.log(filterData)
 sixCard()
