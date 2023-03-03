@@ -16,10 +16,11 @@ const uiSixCard = data=>{
     card.innerHTML="";
 
     data.forEach(singleData => {
-    // console.log(singleData)
+    // console.log(singleData.features)
 
       const {image, features,published_in,name,id}=singleData;
       const div = document.createElement('div');
+    //   console.log(features)
       div.classList.add='col';
       div.innerHTML=`
     <div class="card">
@@ -48,7 +49,7 @@ const uiSixCard = data=>{
             </div>
     </div>        
       ` 
-      card.appendChild(div)
+      card.appendChild(div);
       
     });
 }
@@ -73,20 +74,25 @@ const details =id=>{
     .catch(err=>console.error(err))
 }
 const modalDetails=(data)=>{
-    console.log(data.image_link[0])
+    // console.log(data.image_link[0])
     const{description,tool_name,pricing,features,integrations,image_link
     }=data
+
+
+
+
+    console.log(data.features[1].feature_name)
 const section=document.getElementById('modal-section');
 section.innerHTML=`
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="btn-close outline-" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body d-flex justify-content-between align-items-center">
+            <div class="modal-body d-flex gap-4 justify-content-between align-items-center">
                 <div  class="border border-danger bg-warning-subtle  gap-2  p-4 rounded">
                     <h5>${description}</h5>
                     <div class="d-flex justify-content-between gap-3">
@@ -96,7 +102,13 @@ section.innerHTML=`
                     </div>
                     <div class="d-flex justify-content-between gap-5">
                         <div >
-                            <h5>featcher</h5>
+                            <h5 class="fw-bold">Features</h5>
+                            <ul>
+                             <li>${features[1].feature_name ?features[1].feature_name : 'No Feature name'}</li>
+                             <li>${features[2].feature_name ?features[2].feature_name : 'No Feature name'}</li>
+                             <li>${features[3].feature_name ?features[3].feature_name : 'No Feature name'}</li>
+                            
+                            </ul>
                         </div>
                         <div>
                             <h5>introgation</h5>
@@ -104,7 +116,7 @@ section.innerHTML=`
                     </div>
                 </div>
                 <div>
-                    <img src="${image_link[0]? image_link[0]: image_link[1]}" alt="">
+                    <img class="img-fluid rounded" src="${image_link[0]? image_link[0]: image_link[1]}" alt="">
                     <h5>iuhgsh</h5>
                     <p>lkfdnbln</p>
                 </div>
@@ -115,6 +127,7 @@ section.innerHTML=`
 
 
 `
+
 
 }
 
