@@ -21,7 +21,6 @@ const uiSixCard = data=>{
 
       const {image, features,published_in,name,id}=singleData;
       const div = document.createElement('div');
-     console.log(id)
       div.classList.add='col';
       div.innerHTML=`
     <div class="card">
@@ -84,25 +83,28 @@ fetch(url)
 const modalDetails=(data)=>{
  
  const {description,pricing,features, integrations,image_link,input_output_examples} =data
-
- console.log(data)
+console.log(data.accuracy.score)
 const modalBody=document.getElementById("modeel-body");
 modalBody.innerHTML="";
 const div=document.createElement("div");
-div.classList.add('d-flex', 'justify-content-between', 'gap-3',  'align-items-center')
+div.classList.add('d-md-flex', 'justify-content-between', 'flex-sm-column','flex-md-row', 'gap-3',  'align-items-center')
 
 
 div.innerHTML=`
 <div class="border border-danger bg-warning-subtle gap-2 p-4 rounded">
 <h5>${description}</h5>
-<div id="${pricing}" class="d-flex justify-content-between gap-3">
+<div id="${pricing}" class="d-flex flex-sm-row justify-content-between gap-3">
 </div>
-<div class="d-flex justify-content-between gap-5">
+<div class="d-flex flex-sm-row justify-content-between gap-5">
     <div>
         <h5 class="fw-bold">Features</h5>
 
 
-        <ul id="features"> skip featchers</ul>
+        <ul id="features"> 
+        <li>${features[1].feature_name}</li>
+        <li>${features[2].feature_name}</li>
+        <li>${features[3].feature_name}</li>
+        </ul>
     </div>
 
     <div>
@@ -112,8 +114,13 @@ div.innerHTML=`
 </div>
 </div>
 
+<div class="position-relative">
+
+<img class="img-fluid mt-4 rounded" src="${image_link[0]}" alt="">
 <div>
-<img class="img-thumbnail mt-4 rounded" src="${image_link[0]}" alt="">
+
+<span class="badge text-bg-danger p-2 fw-bold  position-absolute top-0 end-0" style="margin-top: 2rem; margin-right:1rem">${data.accuracy.score} % accuracy</span>
+</div>
 
 <div id="${input_output_examples}">
 </div>
@@ -142,11 +149,11 @@ const orderList=document.getElementById(pricing);
 // console.log(integrations)
 const integrationsList=document.getElementById(integrations);
 integrationsList.innerText="";
-console
 integrations.forEach(Element => {
-            console.log(Element)
+
         const li =document.createElement('li')
-        li.innerText= integrations ? Element :"No data found";
+        console.log(integrations)
+        li.innerText= integrations ? Element : "No data found";
         integrationsList.appendChild(li)
       });
 
@@ -155,10 +162,9 @@ const welcome=document.getElementById(input_output_examples);
 welcome.innerHTML="";
 input_output_examples.forEach(element => {
 
-    console.log(element.input);
     welcome.innerHTML=`
-    <h3 class="mt-4 text-center">${element.input ? element.input : "Can you give any example?"}</h3>
-    <p class="mt-4 text-center">${element.output.null ? "No! Not Yet! Take a break!!!": element.output}</p>
+    <h3 class="mt-4 text-center">${input_output_examples ? element.input : "Can you give any example?"}</h3>
+    <p class="mt-4 text-center">${element.output ? element.output :"not available" }</p>
     `
 });
 
