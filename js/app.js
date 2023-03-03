@@ -118,7 +118,7 @@ div.innerHTML=`
 <img class="img-fluid mt-4 rounded" src="${image_link[0]}" alt="">
 <div id="curency">
 
-<span class="badge text-bg-danger p-2 fw-bold  position-absolute top-0 end-0" style="margin-top: 2rem; margin-right:1rem">${data.accuracy.score} % accuracy</span>
+<span class="badge text-bg-danger p-2 fw-bold  position-absolute top-0 end-0" style="margin-top: 2rem; margin-right:1rem">${data.accuracy.score?data.accuracy.score*100:""} % accuracy</span>
 </div>
 
 <div id="${input_output_examples}">
@@ -155,31 +155,18 @@ input_output_examples.forEach(element => {
 
     welcome.innerHTML=`
     <h3 class="mt-4 text-center">${input_output_examples ? element.input : "Can you give any example?"}</h3>
-    <p class="mt-4 text-center">${element.output ? element.output :"not available" }</p>
+    <p class="mt-4 text-center">${element.output ? element.output :"free of cost" }</p>
     `
 });
 
-if(pricing===null){
-    document.querySelectorAll('.prric').innerHTML=`
-    <li>free of cost</li>
-    <li>free of cost</li>
-    <li>free of cost</li>
-    `
-    return;
-}
+
 if(description===null){
     document.getElementById('descript').innerText="Facebook Ai is a collection of tools and technologies developed by Facebook to advance the field of artificial intelligence."
     return;
-}
-if(data.accuracy.score===null){
-document.getElementById('curency').style.display = "none";
-return;
 }
 
 
 }
 
 // modal
-
-console.log(filterData)
 sixCard()
