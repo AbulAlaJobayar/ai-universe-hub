@@ -77,38 +77,42 @@ const modelDetails= id =>{
 const url =`https://openapi.programming-hero.com/api/ai/tool/${id}`
 fetch(url)
 .then(res=>res.json())
-.then(data=>console.log(data))
+.then(data=>modalDetails(data.data))
 .catch(err=>console.error(err))
 }
 
+const modalDetails=(data)=>{
+ console.log(data.pricing.id)
+ const {description,pricing} =data
 
 
+const modalBody=document.getElementById("modeel-body");
+modalBody.innerHTML="";
+const div=document.createElement("div");
+div.classList.add('border', 'border-danger', 'bg-warning-subtle',  'gap-2',  'p-4', 'rounded')
 
 
+div.innerHTML=`
+<h5>${description}</h5>
+<div id="${pricing}" class="d-flex justify-content-between gap-3">
+     
+</div>
+
+`
+modalBody.appendChild(div)
+
+const orderList=document.getElementById(pricing);
+    orderList.innerText="";
+    pricing.forEach(Element => {
+    console.log(Element)
+        const p =document.createElement('p')
+        p.classList.add('fw-bold', 'bg-white','p-2')
+        p.innerText= Element.price + Element.plan? Element.price + Element.plan :'Free of Cost';
+        orderList.appendChild(p)
+      }); 
 
 
-// const details =id=>{
-//     const url =`https://openapi.programming-hero.com/api/ai/tool/${id}`
-
-//     fetch(url)
-//     .then(res=>res.json())
-//     .then(data=>modalDetails(data))
-//     .catch(err=>console.error(err))
-// }
-// const modalDetails=(data)=>{
-//  console.log(data) 
-// const modalBody=document.getElementById("modeel-body");
-// console.log(modalBody)
-// const div=document.createElement("div");
-// console.log(div)
-// div.innerHTML=`
-// <h1>hello</h1>
-// `
-// modalBody.appendChild(div)
-
-
-// }
-
+}
 
 
 // modal
